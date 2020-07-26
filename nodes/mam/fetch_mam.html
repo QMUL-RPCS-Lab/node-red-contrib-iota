@@ -1,0 +1,45 @@
+<script type="text/javascript">
+    RED.nodes.registerType('MAM fetch', {
+        category: 'IOTA MAM',
+        color: '#a6bbcf',
+        defaults: {
+            iotaNode: { value: "https://nodes.comnet.thetangle.org:443" },
+            mode: { value: 'public' },
+            secret: { value: null },
+            limit: { value: 1 }
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: "iota.png",
+        label: function () {
+            return this.name || "MAM fetch";
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="MAM fetch">
+    <div class="form-row">
+        <label for="node-input-iotaNode">MAM node</label>
+        <input type="text" id="node-input-iotaNode"/>
+    </div>
+    <div class="form-row">
+        <label for="node-input-mode">MAM mode</label>
+        <select id="node-input-mode">
+            <option value="public">Public</option>
+            <option value="private">Private</option>
+            <option value="restricted">Restricted</option>
+        </select>
+    </div>
+        <div class="form-row">
+        <label for="node-input-secret">MAM secret key (restricted mode) </label>
+        <input type="text" id="node-input-secret"/>
+    </div>
+        <div class="form-row">
+        <label for="node-input-limit">MAM fetch limit</label>
+        <input type="text" id="node-input-limit"/>
+    </div>
+</script>
+
+<script type="text/html" data-help-name="MAM fetch">
+    <p>MAM fetch node</p>
+</script>

@@ -1,0 +1,33 @@
+{
+  "name": "node-red-contrib-iota",
+  "version": "1.0.0",
+  "description": "A group of nodes for IOTA (Tangle) integration with masked authenticated messaging (MAM) support.",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "node-red": {
+    "nodes": {
+      "MAM fetch": "nodes/mam/fetch_mam.js",
+      "MAM publish": "nodes/mam/publish_mam.js"
+    }
+  },
+  "author": "Seyed Amir Alavi",
+  "license": "MIT",
+  "dependencies": {
+    "@iota/converter": "*",
+    "@iota/mam": "*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/samiralavi/node-red-contrib-iota.git"
+  },
+  "bugs": {
+    "url": "https://github.com/samiralavi/node-red-contrib-iota/issues"
+  },
+  "keywords": [
+    "node-red",
+    "mam",
+    "iota",
+    "tangle"
+  ]
+}
