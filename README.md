@@ -1,81 +1,38 @@
-# Node-red IOTA MAM module
+# node-red-contrib-iota
 
-Updated on 18/04/2019
+A group of nodes for IOTA (Tangle) integration with masked authenticated messaging (MAM) support.
 
-## Requirements
+# Installation
 
-Install node-red globally and install ui packages and the sensortag package
-
+Run the following command in your Node-RED installation directory:
 ```
-sudo npm install -g --unsafe-perm node-red
-```
-
-in your ~/.node-red installation directory type:
-```
-npm install node-red-dashboard node-red-contrib-sensortag node-red-contrib-simple-gate
-
-```
-
-# IOTA-MAM module installation
-
-Run the following command in your NODE-RED install
-```
-npm install node-red-contrib-iota-mam
+npm install node-red-contrib-iota
 ```
 
 # Usage
 
-Two different function nodes are now available for
+**Currently, only MAM functionality is supported with the following nodes:**
 
-**MAM publish** (=upload data to tangle)
-and
-**MAM fetch** (=download data from tangle)
+- **MAM publish** (for publishing data to tangle)
+- **MAM fetch** (for downloading data from tangle)
 
 Drag MAM function node into a flow and wire it accordingly
 
-## CONFIG - At first use the Node-red sample file included !!!
+## Example
 
-Find included in the root directory a flow sample file called flows_Air.json
-It provides you with an initial config for ROOT (mamFetch) and a devnet IOTA node.
+An example flow based on the nodes is provided at "example/publish_fetch_example.json".
 
-Also you can switch to the newly added node-red dashboard to publish/fetch data
-and see a live visualization.
+![GitHub Logo](doc/images/example_screenshot.png)
 
-If you have any issues regarding this module, please test with this file and give a clear issue description. Thank you!
-
-## MAM fetch
-
-Start deploying a single 'mamFetch function node'.
-Set its root property (**root = "your MAM_ROOT"**)
-
-wire this node's output to
--> any output ( e.g. a chart displaying your msg.payload)
-
-> try with NHNRYMKA9RLTPLQNWFRHKJGVUXAAPBVYBG9LOXFPKDWVKOUIDILEVCBNGLOPYZEGZMEFSCOOVCKNOPSNB)
-
-This should hold a non-encrypted (public) data packet sequence. (as of 18 april 2019)
-
+# Nodes
 
 ## MAM publish
 
-Deploy a sensorTag as input data source.
-(Please report an issue https://gitlab.com/ouya/node-red-contrib-iota-mam/issues if you encounter problems with other sensors. We are looking to support all general sensors in the near future)
+Publishes the input message payload in JSON to a randomly generated address on the tangle network. Returns the message with the generated address in the payload.
 
-wire its output to
--> mamPublish node
+## MAM fetch
 
-and wire this node's output to an
--> (optional) output for logging
-
-The MAM publish now operates in a loop:
-
-1)  collects input data from sensorTag (can be a mix of temperature, lux etc)
-2)  and immediately uploads the 1st data packet to the tangle
-
-loop:
-  ... now waiting for the bundle and its transactions to be confirmed on the tangle, it aggregates all incoming sensor tag data into a data array ...
-  upon MAM confirmation of the previous bundle, it sends this aggregated data array to the tangle
-  ... now waiting again for bundle confirmation
+Fetches the data from an address in the tangle network. The address is received from the input message payload. It returns the previously published messages in JSON from the address (number is defined by limit property) in the payload of the output message. The messages have timestamp in Unix epoch.
 
 ### Rate limits
-on many public nodes you might have rate limits, so better use your own custom node, or make sure the node you connect to has the capacity to handle your sensor data traffic.
+on many public nodes you might have rate limits, so better use your own custom node connected to the tangle network, or make sure the node you connect to has the capacity to handle your required data traffic.
