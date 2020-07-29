@@ -1,6 +1,6 @@
 # node-red-contrib-iota
 
-A group of nodes for IOTA (Tangle) integration with masked authenticated messaging (MAM) support.
+IOTA is the first distributed ledger built for the “Internet of Everything” - a network for exchanging value and data between humans and machines. IOTA cryptocurrency is developed based on Tangle, which is an open, feeless, and scalable distributed ledger, designed to support frictionless data and value transfer. This repository contains the required nodes for NodeRED to create transactions in IOTA or any Tangle network with masked authenticated messaging (MAM) support.
 
 # Installation
 
