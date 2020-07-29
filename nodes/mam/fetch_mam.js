@@ -6,7 +6,7 @@ module.exports = function (RED) {
     RED.nodes.createNode(this, config);
     let node = this;
     let mamState = MAM.init({ provider: config.iotaNode });
-    
+
     node.status({ fill: "blue", shape: "dot", text: "idle" });
 
     node.on('input', function (msg, send, done) {
@@ -15,28 +15,30 @@ module.exports = function (RED) {
       // fallback to using `node.send`
       send = send || function () { node.send.apply(node, arguments) }
 
-      let root = msg.payload;
-      console.log("MAM fetch on iota node: " + config.iotaNode);
-      console.log("MAM root: " + config.root);
-      console.log("MAM mode: " + config.mode);
-      console.log("MAM secret: " + config.secret);
-      console.log("Fetching data ... ");
-  
-      root = root.slice(0, 81);
-      if (config.mode == 'restricted' && config.secret.length == 0) {
-        console.log("Restricted mode: No MAM secret selected");
+      if (msg.error == null) {
+        let root = msg.payload;
+        console.log("MAM fetch on iota node: " + config.iotaNode);
+        console.log("MAM root: " + config.root);
+        console.log("MAM mode: " + config.mode);
+        console.log("MAM secret: " + config.secret);
+        console.log("Fetching data ... ");
+
+        root = root.slice(0, 81);
+        if (config.mode == 'restricted' && config.secret.length == 0) {
+          console.log("Restricted mode: No MAM secret selected");
+        }
+        if (config.mode == 'public') {
+          config.secret = null;
+        }
+        node.status({ fill: "yellow", shape: "dot", text: "fetching" });
+        let resp = MAM.fetch(root, config.mode, config.secret, (result) => {
+          let jsonArray = JSON.parse(IOTA_CONVERTER.trytesToAscii(result));
+          console.log(jsonArray)
+          msg.payload = jsonArray;
+          send(msg);
+          node.status({ fill: "green", shape: "dot", text: "fetched" });
+        }, config.limit);
       }
-      if (config.mode == 'public') {
-        config.secret = null;
-      }
-      node.status({ fill: "yellow", shape: "dot", text: "fetching" });
-      let resp = MAM.fetch(root, config.mode, config.secret, (result) => {
-        let jsonArray = JSON.parse(IOTA_CONVERTER.trytesToAscii(result));
-        console.log(jsonArray)
-        msg.payload = jsonArray;
-        send(msg);
-        node.status({ fill: "green", shape: "dot", text: "fetched" });
-      }, config.limit);
       if (done) {
         done();
       }
