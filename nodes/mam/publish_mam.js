@@ -8,7 +8,7 @@ module.exports = function (RED) {
 
         console.log("MAM publish INIT on iota node: " + config.iotaNode);
         node._state = MAM.init({ provider: config.iotaNode });
-        node._state = MAM.changeMode(node._state, config.mode, config.secretKey);
+        node._state = MAM.changeMode(node._state, config.mode, config.secret);
         node.readyMAM = true;
         node.arrayPackets = []
         node.status({ fill: "blue", shape: "dot", text: "idle" });
@@ -21,10 +21,10 @@ module.exports = function (RED) {
 
             const packet = { time: Date.now(), data: msg.payload };
             node.arrayPackets.push(packet);
-            console.log(this.arrayPackets.length);
 
             if (node.readyMAM) {
                 let trytes = IOTA_CONVERTER.asciiToTrytes(JSON.stringify(node.arrayPackets));
+                let tag_trytes = IOTA_CONVERTER.asciiToTrytes(config.tag);
                 let message = MAM.create(node._state, trytes);
                 // Update the mam state so we can keep adding messages.
                 this._state = message.state;
@@ -32,7 +32,7 @@ module.exports = function (RED) {
                 console.log("Uploading dataset via MAM - please wait");
                 console.log(message.address);
                 node.status({ fill: "yellow", shape: "dot", text: "publishing" });
-                let resp = MAM.attach(message.payload, message.address, 3, 10);
+                let resp = MAM.attach(message.payload, message.address, config.depth, config.mwm, tag_trytes);
                 node.readyMAM = false;
                 node.arrayPackets = [];
                 resp.then(
@@ -46,9 +46,10 @@ module.exports = function (RED) {
                     },
                     // failure
                     function (result) {
-                        console.log("Error " + result)
+                        console.log(result)
                         node.readyMAM = true;
                         msg.payload = message.address;
+                        msg.error = result;
                         send(msg);
                         node.status({ fill: "red", shape: "ring", text: "error" });
                     });
