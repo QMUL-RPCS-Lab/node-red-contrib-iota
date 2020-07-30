@@ -1,1 +1,121 @@
-[{"id":"b45cfed.58a5a","type":"tab","label":"publish_fetch_example","disabled":false,"info":""},{"id":"7849d3a3.804d8c","type":"inject","z":"b45cfed.58a5a","name":"","props":[{"p":"payload"}],"repeat":"","crontab":"","once":false,"onceDelay":0.1,"topic":"","payload":"{\"test var\":\"test value\"}","payloadType":"json","x":320,"y":240,"wires":[["b7b2555a.5b69b8"]]},{"id":"ac68e8c4.7eec18","type":"debug","z":"b45cfed.58a5a","name":"publish address","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"payload","targetType":"msg","statusVal":"","statusType":"auto","x":920,"y":240,"wires":[]},{"id":"f2f8e697.c9ad58","type":"debug","z":"b45cfed.58a5a","name":"fetched data","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"payload","targetType":"msg","statusVal":"","statusType":"auto","x":910,"y":320,"wires":[]},{"id":"b7b2555a.5b69b8","type":"MAM publish","z":"b45cfed.58a5a","iotaNode":"https://nodes.comnet.thetangle.org:443","mode":"public","secretKey":null,"x":570,"y":240,"wires":[["51daf771.bcc9d8","ac68e8c4.7eec18"]]},{"id":"51daf771.bcc9d8","type":"MAM fetch","z":"b45cfed.58a5a","iotaNode":"https://nodes.comnet.thetangle.org:443","mode":"public","secret":"","limit":1,"x":570,"y":320,"wires":[["f2f8e697.c9ad58"]]}]
+[
+    {
+        "id": "b45cfed.58a5a",
+        "type": "tab",
+        "label": "publish_fetch_example",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "7849d3a3.804d8c",
+        "type": "inject",
+        "z": "b45cfed.58a5a",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"test var\":\"test value\"}",
+        "payloadType": "json",
+        "x": 310,
+        "y": 240,
+        "wires": [
+            [
+                "72ecd642.13c818"
+            ]
+        ]
+    },
+    {
+        "id": "ac68e8c4.7eec18",
+        "type": "debug",
+        "z": "b45cfed.58a5a",
+        "name": "publish address",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 920,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "f2f8e697.c9ad58",
+        "type": "debug",
+        "z": "b45cfed.58a5a",
+        "name": "fetched data",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 910,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "ad6aae32.3173a",
+        "type": "debug",
+        "z": "b45cfed.58a5a",
+        "name": "error",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "error",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 890,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "72ecd642.13c818",
+        "type": "MAM publish",
+        "z": "b45cfed.58a5a",
+        "iotaNode": "https://nodes.comnet.thetangle.org:443",
+        "mode": "public",
+        "secret": "",
+        "mwm": 10,
+        "depth": 3,
+        "tag": "",
+        "x": 530,
+        "y": 240,
+        "wires": [
+            [
+                "ad6aae32.3173a",
+                "ac68e8c4.7eec18",
+                "cc89bc23.916a1"
+            ]
+        ]
+    },
+    {
+        "id": "cc89bc23.916a1",
+        "type": "MAM fetch",
+        "z": "b45cfed.58a5a",
+        "iotaNode": "https://nodes.comnet.thetangle.org:443",
+        "mode": "public",
+        "secret": "",
+        "limit": "1",
+        "x": 530,
+        "y": 320,
+        "wires": [
+            [
+                "f2f8e697.c9ad58"
+            ]
+        ]
+    }
+]

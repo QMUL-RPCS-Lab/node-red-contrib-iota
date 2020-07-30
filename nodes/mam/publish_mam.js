@@ -7,8 +7,6 @@ module.exports = function (RED) {
         let node = this;
 
         console.log("MAM publish INIT on iota node: " + config.iotaNode);
-        node._state = MAM.init({ provider: config.iotaNode });
-        node._state = MAM.changeMode(node._state, config.mode, config.secret);
         node.readyMAM = true;
         node.arrayPackets = []
         node.status({ fill: "blue", shape: "dot", text: "idle" });
@@ -25,9 +23,11 @@ module.exports = function (RED) {
             if (node.readyMAM) {
                 let trytes = IOTA_CONVERTER.asciiToTrytes(JSON.stringify(node.arrayPackets));
                 let tag_trytes = IOTA_CONVERTER.asciiToTrytes(config.tag);
-                let message = MAM.create(node._state, trytes);
+                connection = MAM.init({ provider: config.iotaNode });
+                connection = MAM.changeMode(connection, config.mode, config.secret);
+                let message = MAM.create(connection, trytes);
                 // Update the mam state so we can keep adding messages.
-                this._state = message.state;
+                // this._state = message.state;
 
                 console.log("Uploading dataset via MAM - please wait");
                 console.log(message.address);

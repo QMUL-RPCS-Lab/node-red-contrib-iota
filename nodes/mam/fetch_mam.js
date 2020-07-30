@@ -5,7 +5,6 @@ module.exports = function (RED) {
   function fetch_ctor(config) {
     RED.nodes.createNode(this, config);
     let node = this;
-    let mamState = MAM.init({ provider: config.iotaNode });
 
     node.status({ fill: "blue", shape: "dot", text: "idle" });
 
@@ -18,7 +17,7 @@ module.exports = function (RED) {
       if (msg.error == null) {
         let root = msg.payload;
         console.log("MAM fetch on iota node: " + config.iotaNode);
-        console.log("MAM root: " + config.root);
+        console.log("MAM root: " + root);
         console.log("MAM mode: " + config.mode);
         console.log("MAM secret: " + config.secret);
         console.log("Fetching data ... ");
@@ -31,6 +30,7 @@ module.exports = function (RED) {
           config.secret = null;
         }
         node.status({ fill: "yellow", shape: "dot", text: "fetching" });
+        MAM.init({ provider: config.iotaNode });
         let resp = MAM.fetch(root, config.mode, config.secret, (result) => {
           let jsonArray = JSON.parse(IOTA_CONVERTER.trytesToAscii(result));
           console.log(jsonArray)
