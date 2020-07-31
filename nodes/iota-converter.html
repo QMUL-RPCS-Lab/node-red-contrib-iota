@@ -1,0 +1,57 @@
+<script type="text/javascript">
+  RED.nodes.registerType('iotaConverter', {
+    category: 'IOTA',
+    color: '#f6bbcf',
+    defaults: {
+      fromconverter: { value: 'string' },
+      toconverter: { value: 'trytes' },
+      mesage: { value: "Hello World" },
+      name: { value: "" }
+    },
+    inputs: 1,
+    outputs: 1,
+    icon: "iota.png",
+    label: function () {
+      return this.name || "iotaConverter";
+    }
+  });
+</script>
+<script type="text/html" data-template-name="iotaConverter">
+        <div class="form-row">
+          <label for="node-input-fromconverter"><i class="icon-tag"></i> From</label>
+          <select id="node-input-fromconverter">
+              <option value="string">string</option>
+              <option value="trytes">trytes</option>
+              <option value="trits">trits</option>
+              <option value="integer">integer</option>
+          </select>
+        </div>
+
+        <div class="form-row">
+        <label for="node-input-toconverter"><i class="icon-tag"></i> To</label>
+          <select id="node-input-toconverter">
+            <option value="string">string</option>
+            <option value="trytes">trytes</option>
+            <option value="trits">trits</option>
+            <option value="integer">integer</option>
+          </select>
+        </div>
+
+    <div class="form-row">
+        <label for="node-input-mesage"><i class="icon-tag"></i> Message</label>
+        <input type="text" id="node-input-mesage" placeholder="insert value tu convert">
+    </div>
+
+    <div class="form-row">
+      <label for="node-input-name"><i class="icon-tag"></i> name</label>
+      <input type="text" id="node-input-name">
+    </div>
+</script>
+
+<script type="text/html" data-help-name="iotaConverter">
+    <p>IOTA Converter</p>
+    <p>See iota converter on</p>
+    <p>  https://www.npmjs.com/package/@iota/converter   </p>
+    <p>  https://www.npmjs.com/package/trytes            </p>
+    <p>In case of success <code>msg.payload</code> is set to data.</p>
+</script>

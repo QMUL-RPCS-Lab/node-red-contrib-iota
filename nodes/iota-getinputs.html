@@ -1,0 +1,41 @@
+<script type="text/javascript">
+  RED.nodes.registerType('iotagetinputs', {
+    category: 'IOTA',
+    color: '#f6bbcf',
+    defaults: {
+      iotaNode: { value: "", type: "iota-server" },
+      iotaSeed: { value: "HELLOWORLDHELLOWORLDHELLOWORLDHELLOWORLDHELLOWORLDHELLOWORLDHELLOWORLDHELLOWORLDD" },
+      name: { value: "" }
+    },
+    inputs: 1,
+    outputs: 1,
+    icon: "iota.png",
+    label: function () {
+      return this.name || "iotagetinputs";
+    }
+  });
+</script>
+
+<script type="text/html" data-template-name="iotagetinputs">
+    <div class="form-row">
+      <label for="node-input-iotaNode"><i class="fa fa-server"></i> IOTA node</label>
+      <input type="text" id="node-input-iotaNode" placeholder="node">
+    </div>
+    <div class="form-row">
+      <label for="node-input-iotaSeed"><i class="icon-tasks"></i> Use seed</label>
+      <input type="text" id="node-input-iotaSeed" placeholder="seed">
+    </div>
+    <div class="form-row">
+      <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+      <input type="text" id="node-input-name" class="paletteLabel" placeholder="Name">
+    </div>
+</script>
+
+<script type="text/html" data-help-name="iotagetinputs">
+   <p>A node that work with IOTA</p>
+    <b>IOTAnode: </b> Setup IOTA server provider settings like host, port (14265 or 443 - are usual). Default value pow.iota.community:443 <br><br>
+    <b>Seed:</b> Enter your IOTA seed (81 Trytes).<br><br>
+   <p>In case of success <code>msg.payload</code> is set to data.</p>
+   <p>Please visit IOTA Dance to see all server prividers on this: <a href="https://iota.dance/" target="_blank">link</a>.</p>
+   <p>Read more about iota.lib.js API: <a href="https://www.npmjs.com/package/iota.lib.js" target="_blank">here</a>.</p>
+</script>

@@ -8,13 +8,22 @@
   "node-red": {
     "nodes": {
       "MAM fetch": "nodes/mam/fetch_mam.js",
-      "MAM publish": "nodes/mam/publish_mam.js"
+      "MAM publish": "nodes/mam/publish_mam.js",
+      "iotaConverter": "nodes/iota-converter.js",
+      "iota-server": "nodes/iota-servernode.js",
+      "iotatransactions": "nodes/iota-transactions.js",
+      "iotasearch": "nodes/iota-search.js",
+      "iotasendtransfer": "nodes/iota-sendtransfer.js",
+      "iotagetinputs": "nodes/iota-getinputs.js",
+      "iotanewaddress": "nodes/iota-newaddress.js"
     }
   },
   "author": "Seyed Amir Alavi",
   "license": "MIT",
   "dependencies": {
+    "@iota/core": "*",
     "@iota/converter": "*",
+    "@iota/validators": "*",
     "@iota/mam": "*"
   },
   "repository": {

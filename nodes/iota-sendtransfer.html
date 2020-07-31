@@ -1,0 +1,59 @@
+<script type="text/javascript">
+  RED.nodes.registerType('iotasendtransfer', {
+    category: 'IOTA',
+    color: '#f6bbcf',
+    defaults: {
+      iotaNode: { value: "", type: "iota-server" },
+      iotaSeed: { value: "HELLOWORLDHELLOWORLDHELLOWORLDHELLOWORLDHELLOWORLDHELLOWORLDHELLOWORLDHELLOWORLDD" },
+      iotaAddr: { value: "HELLOWORLDHELLOWORLDHELLOWORLDHELLOWORLDHELLOWORLDHELLOWORLDHELLOWORLDHELLOWORLDD" },
+      iotaTag: { value: "FROMNODERED" },
+      iotaValue: { value: 0 },
+      name: { value: "" }
+    },
+    inputs: 1,
+    outputs: 1,
+    icon: "iota.png",
+    label: function () {
+      return this.name || "iotasendtransfer";
+    }
+  });
+</script>
+
+<script type="text/html" data-template-name="iotasendtransfer">
+    <div class="form-row">
+      <label for="node-input-iotaNode"><i class="fa fa-server"></i> IOTA node</label>
+      <input type="text" id="node-input-iotaNode" placeholder="node">
+    </div>
+    <div class="form-row">
+      <label for="node-input-iotaSeed"><i class="icon-tasks"></i> Use seed</label>
+      <input type="text" id="node-input-iotaSeed" placeholder="seed">
+    </div>
+    <div class="form-row">
+      <label for="node-input-iotaAddr"><i class="icon-tag"></i> To addr</label>
+      <input type="text" id="node-input-iotaAddr" placeholder="addr">
+    </div>
+    <div class="form-row">
+      <label for="node-input-iotaValue"><i class="icon-tag"></i> Value (Ki)</label>
+      <input type="number" min="0" step="1" value="0" id="node-input-iotaValue" placeholder="Readonly value in Kiota to transfer">
+    </div>
+    <div class="form-row">
+      <label for="node-input-iotaTag"><i class="icon-tag"></i> Tag</label>
+      <input type="text" id="node-input-iotaTag" placeholder="FROMNODEREDTAG">
+    </div>
+    <div class="form-row">
+      <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+      <input type="text" id="node-input-name" class="paletteLabel" placeholder="Name">
+    </div>
+
+</script>
+
+<script type="text/html" data-help-name="iotasendtransfer">
+  <p>A node that work with IOTA</p>
+   <b>IOTAnode: </b> Setup IOTA server provider settings like host, port (14265 or 443 - are usual). Default value pow.iota.community:443 <br><br>
+   <b>Seed:</b> Enter your IOTA seed (81 Trytes).<br><br>
+   <b>Addr:</b> Enter destination address.<br><br>
+   <b>Value:</b> Enter founds to transfer in Ki.<br><br>
+   <b>Tag:</b> Enter a Tag for transaction.<br><br>
+  <p>In case of success <code>msg.payload</code> is set to data.</p>
+  <p>Read more about iota.lib.js API: <a href="https://www.npmjs.com/package/iota.lib.js" target="_blank">here</a>.</p>
+</script>

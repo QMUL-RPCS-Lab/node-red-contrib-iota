@@ -1,0 +1,52 @@
+<script type="text/javascript">
+  RED.nodes.registerType('iotasearch', {
+    category: 'IOTA',
+    color: '#f6bbcf',
+    defaults: {
+      iotaNode: { value: "", type: "iota-server" },
+      iotaValue: { value: "RHVGKQBYOJLCJQYZEVLN9HL99AAAFKPJTGAD9CFCYCBZNBBOWPQLNJMZCEE9OKYFPLZNJPBDLBQZEMWOX" },
+      iotaSelect: { value: "addresses" },
+      name: { value: "" }
+    },
+    inputs: 1,
+    outputs: 1,
+    icon: "iota.png",
+    label: function () {
+      return this.name || "iotasearch";
+    }
+  });
+</script>
+
+<script type="text/html" data-template-name="iotasearch">
+    <div class="form-row">
+      <label for="node-input-iotaNode"><i class="fa fa-server"></i> IOTA node</label>
+      <input type="text" id="node-input-iotaNode" placeholder="node">
+    </div>
+
+    <div class="form-row">
+    <label for="node-input-iotaSelect"><i class="icon-tag"></i> Select Object</label>
+      <select id="node-input-iotaSelect">
+          <option value="addresses">addresses</option>
+          <option value="bundles">bundles</option>
+          <option value="tags">tags</option>
+          <option value="approvees">approvees</option>
+      </select>
+    </div>
+
+    <div class="form-row">
+      <label for="node-input-iotaValue"><i class="icon-tasks"></i> Value Object</label>
+      <input type="text" id="node-input-iotaValue" placeholder="address, bundle, tag or approve">
+    </div>
+    <div class="form-row">
+      <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+      <input type="text" id="node-input-name" class="paletteLabel" placeholder="Name">
+    </div>
+</script>
+
+<script type="text/html" data-help-name="iotasearch">
+  <p>A node that work with IOTA</p>
+   <b>IOTAnode: </b> Setup IOTA server provider settings like host, port (14265 or 443 - are usual). Default value pow.iota.community:443 <br><br>
+   <b>Select Object:</b> Enter yout type of transtaction to search.<br><br>
+  <p>In case of success <code>msg.payload</code> is set to data.</p>
+  <p>Read more about iota.lib.js API: <a href="https://www.npmjs.com/package/iota.lib.js" target="_blank">here</a>.</p>
+</script>

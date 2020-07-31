@@ -1,0 +1,40 @@
+<script type="text/javascript">
+  RED.nodes.registerType('iotatransactions', {
+    category: 'IOTA',
+    color: '#f6bbcf',
+    defaults: {
+      iotaNode: { value: "", type: "iota-server" },
+      iotaHash: { value: "HELLOWORLDHELLOWORLDHELLOWORLDHELLOWORLDHELLOWORLDHELLOWORLDHELLOWORLDHELLOWORLDD" },
+      name: { value: "" }
+    },
+    inputs: 1,
+    outputs: 1,
+    icon: "iota.png",
+    label: function () {
+      return this.name || "iotatransactions";
+    }
+  });
+</script>
+
+<script type="text/html" data-template-name="iotatransactions">
+    <div class="form-row">
+      <label for="node-input-iotaNode"><i class="fa fa-server"></i> IOTA node</label>
+      <input type="text" id="node-input-iotaNode" placeholder="node">
+    </div>
+    <div class="form-row">
+      <label for="node-input-iotaHash"><i class="icon-tasks"></i> Find hash</label>
+      <input type="text" id="node-input-iotaHash" placeholder="hash">
+    </div>
+    <div class="form-row">
+      <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+      <input type="text" id="node-input-name" class="paletteLabel" placeholder="Name">
+    </div>
+</script>
+
+<script type="text/html" data-help-name="iotatransactions">
+  <p>A node that work with IOTA</p>
+   <b>IOTAnode: </b> Setup IOTA server provider settings like host, port (14265 or 443 - are usual). Default value pow.iota.community:443 <br><br>
+   <b>Hash:</b> Enter your HASH transtaction (81 Trytes).<br><br>
+  <p>In case of success <code>msg.payload</code> is set to data.</p>
+  <p>Read more about iota.lib.js API: <a href="https://www.npmjs.com/package/iota.lib.js" target="_blank">here</a>.</p>
+</script>
